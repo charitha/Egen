@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Relevant and Irrelevant Docs </title>
+		<script type="text/javascript">
+		
+			function readCall()
+			{
+
+			xhr = new XMLHttpRequest();
+			xhr.open('GET','http://localhost:8091/doc.txt',true);
+			xhr.onreadystatechange = displayText;
+			xhr.send()
+
+		
+			}
+			
+			function displayText()
+			{	
+			document.getElementById("doc").innerHTML="";
+			
+			if (xhr.readyState==4 && xhr.status==200)
+				{
+					data = xhr.responseText;
+					urls = data.split("\n");
+					
+					for (line in urls)
+					{
+					document.getElementById("doc").innerHTML+=urls[line]+"<br/>";
+					}
+					
+				}
+			}
+
+		</script>
+	</head>
+	<body onload="readCall()">
+		<div id="doc"></div>
+	</body>
+</html>

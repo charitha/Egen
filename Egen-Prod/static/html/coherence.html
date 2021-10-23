@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> coherence </title>
+		<script type="text/javascript">
+		
+			function readCall()
+			{
+
+			xhr = new XMLHttpRequest();
+			xhr.open('GET','http://localhost:8091/coherence.txt',true);
+			xhr.onreadystatechange = displayText;
+			xhr.send()
+                        }
+			function displayText()
+			{	
+			document.getElementById("doc").innerHTML="";
+			
+			if (xhr.readyState==4 && xhr.status==200)
+				{
+					data = xhr.responseText;
+					document.getElementById("doc").innerHTML=data+"</br>";
+					
+					
+				}
+			}
+
+		</script>
+	</head>
+	<body onload="readCall()">
+			<form action="http://localhost:8091/readData" method="POST">
+			    <div> Enter the document text:</div>
+			    <textarea rows="10" cols="80" name="name" ></textarea>
+			    <input type="submit" value="get coherence"/>
+			</form>
+		<div id="doc"></div>
+	</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Urls </title>
+		<script type="text/javascript">
+		function periodicCall()
+		{
+
+			xhr = new XMLHttpRequest();
+			xhr.open('GET','http://localhost:8091/url.txt',true);
+			xhr.onreadystatechange = displayUrls;
+			xhr.send()
+
+			id = setTimeout(periodicCall,1000);
+		}
+
+		function displayUrls()
+		{	document.getElementById("urls").innerHTML="";
+			
+			if (xhr.readyState==4 && xhr.status==200)
+				{
+					data = xhr.responseText;
+					urls = data.split("\n");
+					
+					for (line in urls)
+					{
+					document.getElementById("urls").innerHTML+=urls[line]+"<br/>";
+					}
+					
+				}
+		}
+
+		function init()
+		{
+			id = setTimeout(periodicCall,1000);
+		}
+		</script>
+	</head>
+	<body onload="init()" style="background-color:lavender">
+		<label> URLS Extracted </label>
+		<div id="urls"></div>
+	</body>
+</html>
