@@ -1,0 +1,153 @@
+<html>
+  <head>
+    
+    <link rel="stylesheet" type="text/css" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.js"></script>	
+    
+    <script type="text/javascript">
+    
+      $(window).load(function(){
+ 	id=null;
+	textHash = {
+         
+        };
+
+
+	
+       changeContent = function(key) {
+	  html = textHash[key];
+          $('#content').html(html);
+	 }
+	
+        $("#menu a").click(function(e) {
+          $('#menu').collapse('hide');
+          changeContent(e.target.innerText);
+        });
+        
+        $("#fileinput").change(function(e){
+          $("#fileinput").css('content','Uploaded');
+	  
+       
+        });
+	
+	function getTextBook(){
+				
+
+  						$.ajax({url:"textBook.xml",
+						        success:function(result){
+											if(id){
+											clearTimeout(id)
+											}
+											var xml = $(result)
+											alert("success")
+											alert(xml);
+											titleArray = [];
+											definitionArray = [];
+										        xml.find('TITLE').contents().each(function(){
+											    var node = $(this);
+											  
+											    titleArray.push(node.text());
+											});
+											xml.find('DEFINITION').contents().each(function()
+											{
+											    var node = $(this);
+											    definitionArray.push(node.text());
+												
+											});
+											
+
+											alert ("titles:"+titleArray);
+											alert ("definition:"+definitionArray);
+											
+											for (i in titleArray){
+												textHash[titleArray[i]] = definitionArray[i];
+alert("texthash" + textHash[titleArray[i]]); 
+$("#sylList").append('<li><a>'+titleArray[i]+'</a><li>');
+
+}
+											$("#menu a").click(function(e) {
+        										$('#menu').collapse('hide');
+         										 changeContent(e.target.innerText);
+        											});
+												
+											
+  										},
+							 error:function(data){
+									alert('mickey mouse');
+									id = setTimeout(getTextBook,10000);
+							}
+							});
+
+								
+					      	}
+       
+	getTextBook();
+	
+	
+        $("#submitSyllabus").click(getTextBook);
+
+	
+      });
+    </script>
+  </head>
+  
+  <body >
+
+    <div class="viewport">
+      <div class="frame">
+        <div id="menu" class="menu nav-collapse collapse width">
+          <div class="collapse-inner">
+            <div class="navbar navbar-inverse">
+              <div class="navbar-inner">
+                Syllabus
+              </div>
+            </div>
+            <ul id="sylList" class="nav nav-tabs nav-stacked">
+	    </ul>
+          </div>
+        </div>
+
+        <div class="view">
+          <div class="navbar navbar-inverse">
+            <div class="navbar-inner">
+              <button type="button" class="btn btn-navbar"  data-toggle="collapse" data-target="#menu">
+                <<<
+              </button>
+            </div>
+          </div>
+          <div id="content">
+		<div id="outerbox">
+                	<div >Egen </div>
+                         <div> Generate E-learn content in One Click </div>
+			
+			<form action="readfile" method="post" enctype="multipart/form-data">
+			<div id="choicebar" >
+				<div class="radio">
+					<input id="concise" selected="selected" type="radio" name="Pages" value="Concise">
+					<label for="concise">Concise</label>
+					<input id="detailed" type="radio" name="Pages" value="Detailed">
+					<label for="detailed">Detailed</label>
+				</div>
+			</div>
+			<div id="err" style = "display: none"> File not uploaded </div>
+			<div style="font-size:15px;text-align:center;">Upload the syllabus file here</div>
+			
+           		<div class="buttonbar">
+			
+			<button class="button" id="submitSyllabus">Get E-Content</button>
+			<input id="fileinput" name="syllabus" type="file" class="custom-file-input">
+			<div>
+
+           		</form>
+                        
+		<div >
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

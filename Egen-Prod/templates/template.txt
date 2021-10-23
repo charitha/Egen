@@ -1,0 +1,11 @@
+<:Defination:>
+//$hsent// states that //$sent//.
+//$hsent// can be defined as //$sent//.
+//$sent// is said to be //$hsent//.
+<eol>
+<:Listing:>
+//$hsent// //$sent// //$list//
+//$list// : #no //$hsent//
+//$Isent// : for example|can listed as follows | such as
+
+

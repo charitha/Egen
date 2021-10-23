@@ -1,5 +1,58 @@
 <!DOCTYPE html>
 
+
+<html> 
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    		<title>Egen</title>
+    		<!--<link rel="stylesheet" href="default.css" type="text/css" />-->
+    		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+    	 	<script type="text/javascript">
+
+		
+
+		function readText(event){
+
+			
+			document.getElementById("file").style.display="none";
+			
+			if (window.FileReader )
+		       {
+				
+				document.getElementById("main").innerHTML="";
+	
+		
+				var reader = new FileReader();
+				
+				reader.onload = function (e) 
+				{ 
+				 
+		
+			    	var output=e.target.result;
+											
+				output=output.split("\n");
+
+				for (i in output)
+					{
+						document.getElementById('main').innerHTML+= output[i]+"<br>";
+						
+					}
+				}
+	
+				reader.readAsText(event.files[0]);
+					
+				
+			}
+
+		} 
+		</script>
+	</head>
+	<body style="background-color:#9966FF">
+		<input id="file" type="file" onchange='readText(this)' />
+		<div id="main"></div>
+  	</body>
+
+
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -10,4 +63,5 @@
   </head>
   <body>
   </body>
+
 </html>
